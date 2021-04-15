@@ -62,7 +62,7 @@ setup(
     zip_safe=False,
     keywords='django,svg,image,form,field',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Framework :: Django :: 2.1',
         'Framework :: Django :: 2.2',
         'Framework :: Django :: 3.1',
