@@ -1,0 +1,4 @@
+-r requirements.txt
+wheel
+twine
+flake8>=2.1.0

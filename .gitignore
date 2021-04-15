@@ -1,0 +1,40 @@
+# Python venv
+venv/
+.venv/
+
+# Environments
+*.env
+
+# Builds
+[Bb]uild/
+.mypy_cache/
+.pytest_cache/
+*.py[cod]
+
+# Idea
+.idea/
+__pycache__/
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+# Service assets
+data/
+static/
+media/
+*.sqlite3
+*.db
+db.json
+

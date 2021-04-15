@@ -5,18 +5,7 @@ Django SVG Image Field
 .. image:: https://badge.fury.io/py/django-svg-image-form-field.svg
     :target: https://badge.fury.io/py/django-svg-image-form-field
 
-.. image:: https://travis-ci.org/artrey/django-svg-image-form-field.svg?branch=master
-    :target: https://travis-ci.org/artrey/django-svg-image-form-field
-
-.. image:: https://codecov.io/gh/artrey/django-svg-image-form-field/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/artrey/django-svg-image-form-field
-
 A form field to handle validation of image + svg
-
-Documentation
--------------
-
-The full documentation is at https://django-svg-image-form-field.readthedocs.io.
 
 Quickstart
 ----------
@@ -25,54 +14,51 @@ Install Django SVG Image Field::
 
     pip install django-svg-image-form-field
 
-Add it to your `INSTALLED_APPS`:
+Models:
 
 .. code-block:: python
 
-    INSTALLED_APPS = (
-        ...
-        'django_svg_image_form_field.apps.DjangoSvgImageFieldConfig',
-        ...
-    )
+    from django.db import models
 
-Add Django SVG Image Field's URL patterns:
+
+    class Article(models.Model):
+        title = models.CharField(max_length=100)
+        image = models.ImageField(upload_to='images/articles')
+        text = models.TextField()
+
+Forms:
 
 .. code-block:: python
 
-    from django_svg_image_form_field import urls as django_svg_image_field_urls
+    from django import forms
+
+    from .models import Article
+    from django_svg_image_form_field import SvgAndImageFormField
 
 
-    urlpatterns = [
-        ...
-        url(r'^', include(django_svg_image_field_urls)),
-        ...
-    ]
+    class ArticleForm(forms.ModelForm):
+        class Meta:
+            model = Article
+            exclude = []
+            field_classes = {
+                'image': SvgAndImageFormField,
+            }
 
-Features
---------
+Example usage:
 
-* TODO
+.. code-block:: python
 
-Running Tests
--------------
+    from django.contrib import admin
 
-Does the code actually work?
-
-::
-
-    source <YOURVIRTUALENV>/bin/activate
-    (myenv) $ pip install tox
-    (myenv) $ tox
+    from .forms import ArticleForm
+    from .models import Article
 
 
-Development commands
----------------------
-
-::
-
-    pip install -r requirements-dev.txt
-    invoke -l
-
+    @admin.register(Article)
+    class SectionAdmin(admin.ModelAdmin):
+        list_display = 'id', 'title'
+        search_fields = 'title',
+        form = ArticleForm
 
 Credits
 -------
