@@ -62,12 +62,25 @@ class SvgAndImageFormField(DjangoImageField):
         """
         Check if provided file is svg
         """
-        f.seek(0)
+
+        # When is the temporary_file_path
+        f_is_path = isinstance(f, str)
+
+        if(f_is_path):
+            fio = open(f, 'rb')
+        else:
+            fio = f
+
+        fio.seek(0)
         tag = None
         try:
-            for event, el in ElementTree.iterparse(f, ('start',)):
+            for event, el in ElementTree.iterparse(fio, ('start',)):
                 tag = el.tag
                 break
         except ElementTree.ParseError:
             pass
+
+        if(f_is_path):
+            fio.close()
+
         return tag == '{http://www.w3.org/2000/svg}svg'
