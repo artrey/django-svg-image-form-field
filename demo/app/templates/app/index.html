@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Django SVG image form field</title>
+  <style>
+    body {
+      margin: 2em;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 2em;
+      row-gap: 2em;
+    }
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .card {
+      border: gray 1px solid;
+      border-radius: 20px;
+    }
+
+    .card__title {
+      text-align: center;
+      margin: 1em 20px;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    .card__image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 300px;
+    }
+
+    .card__text {
+      margin: 1em 20px;
+    }
+  </style>
+</head>
+<body>
+{% for article in object_list %}
+  <div class="card">
+    <p class="card__title">{{ article.title }}</p>
+    <div class="card__image">
+      <img src="{{ article.image.url }}" alt="{{ article.title }}"/>
+    </div>
+    <p class="card__text">{{ article.text }}</p>
+  </div>
+{% endfor %}
+</body>
+</html>

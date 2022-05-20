@@ -6,6 +6,6 @@ from .models import Article
 
 @admin.register(Article)
 class SectionAdmin(admin.ModelAdmin):
-    list_display = 'id', 'title'
-    search_fields = 'title',
+    list_display = ['id', 'title']
+    search_fields = ['title']
     form = ArticleForm
